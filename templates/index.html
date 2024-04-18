@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monvert first checking money convert platform in Indonesia</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='asset/images/favicon.ico') }}">
+    <meta name="description" content="Monvert is the first checking money convert platform in Indonesia.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        input[type="text"],
+        select {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+        p {
+            font-weight: bold;
+            color: #333;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Monvert(Money Comvert) first checking money convert platform in Indonesia</h1>
+    <form method="POST">
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" name="amount" required><br><br>
+
+        <label for="from_currency">From:</label>
+        <select id="from_currency" name="from_currency">
+            {% for currency in currencies %}
+                <option value="{{ currency }}">{{ currency }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="to_currency">To:</label>
+        <select id="to_currency" name="to_currency">
+            {% for currency in currencies %}
+                <option value="{{ currency }}">{{ currency }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if converted_amount %}
+        <p>Converted amount: {{ converted_amount }}</p>
+    {% endif %}
+</body>
+</html>
