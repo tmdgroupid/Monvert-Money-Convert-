@@ -18,7 +18,7 @@ def convert_currency():
             if to_currency in data['rates']:
                 rate = data['rates'][to_currency]
                 converted_amount = float(amount) * rate
-                return f'Converted amount: {converted_amount}'
+                return str(converted_amount)
             else:
                 return "Error: Currency conversion not supported"
         else:
