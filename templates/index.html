@@ -24,6 +24,10 @@
         form {
             display: flex;
             flex-direction: column;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         label {
@@ -32,7 +36,7 @@
             color: #333;
         }
 
-        input[type="text"],
+        input[type="number"],
         select {
             padding: 0.5rem;
             border: 1px solid #ccc;
@@ -59,13 +63,22 @@
             color: #333;
             margin-top: 1rem;
         }
+
+        textarea {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 100px;
+            resize: vertical;
+        }
     </style>
 </head>
 <body>
-    <h1>Monvert(Money Comvert) first checking money convert platform in Indonesia</h1>
-    <form method="POST">
+    <h1>Monvert(Money Convert) first checking money convert platform in Indonesia</h1>
+    <form method="POST" id="convert-form">
         <label for="amount">Amount:</label>
-        <input type="text" id="amount" name="amount" required><br><br>
+        <input type="number" id="amount" name="amount" min="0" max="1000000000000" required><br><br>
 
         <label for="from_currency">From:</label>
         <select id="from_currency" name="from_currency">
@@ -81,11 +94,25 @@
             {% endfor %}
         </select><br><br>
 
-        <button type="submit">Convert</button>
+        <button type="button" id="convert-button">Convert</button>
+        <textarea id="result" placeholder="Result Here" readonly></textarea>
     </form>
 
-    {% if converted_amount %}
-        <p>Converted amount: {{ converted_amount }}</p>
-    {% endif %}
+    <script>
+        document.getElementById("convert-button").addEventListener("click", function() {
+            var form = document.getElementById("convert-form");
+            var formData = new FormData(form);
+
+            fetch("/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("result").innerText = result;
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
 </body>
 </html>
